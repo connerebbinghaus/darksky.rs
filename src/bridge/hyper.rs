@@ -77,7 +77,7 @@ pub trait DarkskyHyperRequester {
         token: T,
         latitude: f64,
         longitude: f64,
-    ) -> Box<Future<Item = Forecast, Error = Error> + 'b>;
+    ) -> Box<Future<Item = Forecast, Error = Error> + 'b + Send>;
 
     /// Retrieve a [forecast][`Forecast`] for the given latitude and longitude,
     /// setting options where needed. For a full list of options, refer to the
@@ -197,7 +197,7 @@ where
         token: T,
         latitude: f64,
         longitude: f64,
-    ) -> Box<Future<Item = Forecast, Error = Error> + 'b> {
+    ) -> Box<Future<Item = Forecast, Error = Error> + 'b + Send> {
         let url = utils::uri(token.as_ref(), latitude, longitude);
         let uri = match Uri::from_str(&url) {
             Ok(v) => v,
