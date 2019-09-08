@@ -15,11 +15,7 @@
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 //! Bridged support for the `hyper` library.
 
-use futures::Stream;
-use hyper::{
-    body::Payload,
-    client::{connect::Connect, Client},
-};
+use hyper::client::{connect::Connect, Client};
 use crate::models::Forecast;
 use std::str::FromStr;
 use crate::{internal, utils, Error};
@@ -80,14 +76,11 @@ pub trait DarkskyHyperRequester {
 }
 
 #[async_trait]
-impl<B, C> DarkskyHyperRequester for Client<C, B>
+impl<C> DarkskyHyperRequester for Client<C, hyper::Body>
 where
     C: Connect + Sync + 'static,
     C::Transport: 'static,
     C::Future: 'static,
-    B: Payload + Send + 'static + Default + Stream + Unpin,
-    B::Data: Send + Unpin,
-    B::Item: AsRef<[u8]>,
 {
     async fn get_forecast<'a, 'b, T: AsRef<str> + Send>(
         &'a self,
