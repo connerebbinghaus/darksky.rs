@@ -21,7 +21,7 @@ use std::io::Error as IoError;
 use std::result::Result as StdResult;
 
 #[cfg(feature = "hyper")]
-use http::uri::InvalidUri;
+use hyper::http::uri::InvalidUri;
 #[cfg(feature = "hyper")]
 use hyper::error::Error as HyperError;
 #[cfg(feature = "reqwest")]

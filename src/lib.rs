@@ -102,8 +102,8 @@
 //! [devportal]: https://darksky.net/dev
 //! [docs]: https://darksky.net/dev/docs
 //! [status]: http://status.darksky.net
-#![cfg_attr(feature = "cargo-clippy", allow(doc_markdown))]
 #![deny(missing_docs)]
+#![feature(custom_inner_attributes)]
 
 #[macro_use]
 extern crate serde_derive;
@@ -113,8 +113,6 @@ extern crate serde_json;
 
 #[cfg(feature = "futures")]
 extern crate futures;
-#[cfg(feature = "hyper")]
-extern crate http;
 #[cfg(feature = "hyper")]
 extern crate hyper;
 #[cfg(feature = "reqwest")]
