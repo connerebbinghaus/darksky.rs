@@ -78,9 +78,7 @@ pub trait DarkskyHyperRequester {
 #[async_trait]
 impl<C> DarkskyHyperRequester for Client<C, hyper::Body>
 where
-    C: Connect + Sync + 'static,
-    C::Transport: 'static,
-    C::Future: 'static,
+    C: Connect + Sync + Send + Clone + 'static,
 {
     async fn get_forecast<'a, 'b, T: AsRef<str> + Send>(
         &'a self,
@@ -88,6 +86,7 @@ where
         latitude: f64,
         longitude: f64,
     ) -> Result<Forecast, Error> {
+        use crate::futures::StreamExt;
         let url = utils::uri(token.as_ref(), latitude, longitude);
         let uri = match hyper::Uri::from_str(&url) {
             Ok(v) => v,
