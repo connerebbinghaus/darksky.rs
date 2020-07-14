@@ -25,10 +25,11 @@ serde_json = "1.0"
 futures = {version = "0.3", features = ["async-await", "compat"], optional=true}
 async-trait = {version = "0.1", optional = true}
 hyper = {version = "0.13", optional = true}
-
+reqwest = {version = "0.10", optional = true}
 [features]
-default = ["hyper-support"]
+default = ["reqwest-support"]
 hyper-support = ["futures", "async-trait", "hyper"]
+reqwest-support = ["futures", "async-trait", "reqwest"]
 
 [package.metadata.docs.rs]
 all-features = true

@@ -16,20 +16,8 @@
 
 use serde::de::DeserializeOwned;
 use serde_json;
-#[cfg(feature = "reqwest")]
-use std::io::Read;
 use crate::Result;
 
-#[cfg(feature = "reqwest")]
-pub fn from_reader<R, T>(reader: R) -> Result<T>
-where
-    R: Read,
-    T: DeserializeOwned,
-{
-    serde_json::from_reader(reader).map_err(From::from)
-}
-
-#[cfg(feature = "hyper")]
 pub fn from_chunk<T: DeserializeOwned>(chunk: &[u8]) -> Result<T> {
     serde_json::from_slice(chunk).map_err(From::from)
 }

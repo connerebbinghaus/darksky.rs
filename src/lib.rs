@@ -102,8 +102,6 @@
 //! [devportal]: https://darksky.net/dev
 //! [docs]: https://darksky.net/dev/docs
 //! [status]: http://status.darksky.net
-#![deny(missing_docs)]
-
 #[macro_use]
 extern crate serde_derive;
 
